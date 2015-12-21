@@ -54,6 +54,7 @@ void __fastcall TForm2::Button1Click(TObject *Sender)
 		ShowMessage(L"登入義守帳號時發生問題！");
 		return;
 	}
+
 	this->Panel1->Enabled = false;
 	String SurveyMenuSource = nClient->GetHtml(SurveyMenuURL);
 	if (SurveyMenuSource.Pos(L"填寫教學意見調查問卷") < 1)
@@ -95,6 +96,7 @@ bool __fastcall TForm2:: SendSurvey(String ClassID,String CmdOpt,String ChoiseSt
 	Source = StrRemove(Source, "\t");
 	Source = StrRemove(Source, "\r");
 	Source = StrRemove(Source, " ");
+
 	Arg1->Add("cr_code=" + ClassID);
 	Arg1->Add("stucrcode=" + ClassID);
 	Arg1->Add("X01X06M2/Y=Y");
@@ -108,6 +110,13 @@ bool __fastcall TForm2:: SendSurvey(String ClassID,String CmdOpt,String ChoiseSt
 	Arg1->Add("X08X10T/Y=");
 	Arg1->Add("X01X04T/Y=");
 	Arg1->Add("X01X06T/Y=");
+
+	Arg1->Add("X01X03/Y=L1");
+	Arg1->Add("X08X05/Y=L1");
+	Arg1->Add("X08X06/Y=L1");
+	Arg1->Add("X08X07/Y=L1");
+	Arg1->Add("X08X08/Y=L1");
+	Arg1->Add("X01X07M6/Y=Y");
 
 	Arg1->Add("command=" + TRegEx::Match(Source,"name=commandtype=hiddenvalue=\"([^\"]+)\"").Groups[1].Value);
 	Arg1->Add("test="+ TRegEx::Match(Source,"name=testtype=hiddenvalue=\"([^\"]+)\"").Groups[1].Value);
